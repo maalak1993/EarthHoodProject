@@ -224,7 +224,7 @@ $.getJSON( "testJSON.json", function( data ) {
       checker(data[i].i,data[i].v);
       randomValue(data[i].v, gaugeChart, "voltage");
       i++;
-      if(standard == 18.5){
+      if(standard === 18.5){
         console.log("standated is 18.5");
       standard = 18;
     }else{
