@@ -209,13 +209,16 @@ $.ajax({
 $.getJSON( "testJSON.json", function( data ) {
 
  let i =0;
+  let standard=18;
   setInterval( function(){
 
-    randomValue(18, gaugeChart2, "voltage");
+    randomValue(standard, gaugeChart2, "voltage");
     console.log("2");
     randomValue(17.1, gaugeChart3, "KW");
     console.log("3");
-
+    if(standard == 18.5){
+      standard=18;
+    }
     if(i >= data.length){
       // console.log(data.length);
     }else{
@@ -223,6 +226,7 @@ $.getJSON( "testJSON.json", function( data ) {
       checker(data[i].i,data[i].v);
       randomValue(data[i].v, gaugeChart, "voltage");
       i++;
+      standard = standard+0.1;
     }
 
   }, 500 );
