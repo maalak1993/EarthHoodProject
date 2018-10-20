@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+  #chartdiv1 {
+  	width	: 30%;
+  	height	: 500px;
+  }
+
+  #chartdiv2 {
+    width	: 30%;
+    height	: 500px;
+  }
+
+  #chartdiv3{
+    width	: 30%;
+    height	: 500px;
+  }
+  </style>
+
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div id="chartdiv1" ></div>
+    <div id="chartdiv2" ></div>
+    <div id="chartdiv3" ></div>
+  </div>
+
+</div>
+</body>
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/gauge.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script>
+
+
+
+var gaugeChart = AmCharts.makeChart( "chartdiv1", {
+  "type": "gauge",
+  "theme": "light",
+  "axes": [ {
+    "axisThickness": 2,
+    "axisAlpha": 0.2,
+    "tickAlpha": 0.2,
+    "valueInterval": 0.3,
+    "bands": [ {
+      "color": "#84b761",
+      "endValue": 18.6,
+      "startValue": 18,
+      "innerRadius": "90%"
+    }, {
+      "color": "#cc4748",
+      "endValue": 18,
+      "startValue": 15,
+      "innerRadius": "90%"
+    }, {
+      "color": "#cc4748",
+      "endValue": 20,
+     "innerRadius": "90%",
+      "startValue": 18.6
+    } ],
+   "bottomText": "0 voltage",
+    "bottomTextYOffset": -20,
+    "endValue": 20,
+    "startValue": 15
+  } ],
+  "arrows": [ {} ],
+  "export": {
+    "enabled": true
+  }
+} );
+
+var gaugeChart2 = AmCharts.makeChart( "chartdiv2", {
+  "type": "gauge",
+  "theme": "light",
+  "axes": [ {
+    "axisThickness": 2,
+    "axisAlpha": 0.2,
+    "tickAlpha": 0.2,
+    "valueInterval": 0.3,
+    "bands": [ {
+      "color": "#84b761",
+      "endValue": 18.6,
+      "startValue": 18,
+      "innerRadius": "90%"
+    }, {
+      "color": "#cc4748",
+      "endValue": 18,
+      "startValue": 15,
+      "innerRadius": "90%"
+    }, {
+      "color": "#cc4748",
+      "endValue": 20,
+     "innerRadius": "90%",
+      "startValue": 18.6
+    } ],
+   "bottomText": "0 voltage",
+    "bottomTextYOffset": -20,
+    "endValue": 20,
+    "startValue": 15
+  } ],
+  "arrows": [ {} ],
+  "export": {
+    "enabled": true
+  }
+} );
+
+var gaugeChart3 = AmCharts.makeChart( "chartdiv3", {
+  "type": "gauge",
+  "theme": "light",
+  "axes": [ {
+    "axisThickness": 2,
+    "axisAlpha": 0.2,
+    "tickAlpha": 0.2,
+    "valueInterval": 0.3,
+    "bands": [ {
+      "color": "#84b761",
+      "endValue": 18.6,
+      "startValue": 18,
+      "innerRadius": "90%"
+    }, {
+      "color": "#cc4748",
+      "endValue": 18,
+      "startValue": 15,
+      "innerRadius": "90%"
+    }, {
+      "color": "#cc4748",
+      "endValue": 20,
+     "innerRadius": "90%",
+      "startValue": 18.6
+    } ],
+   "bottomText": "0 KW",
+    "bottomTextYOffset": -20,
+    "endValue": 20,
+    "startValue": 15
+  } ],
+  "arrows": [ {} ],
+  "export": {
+    "enabled": true
+  }
+} );
+// let resultsContainer = document.getElementById("results");
+let voltStandard = 18;
+let currentStandard = 0.4;
+let healthy = true;
+let id = 1;
+
+
+
+function checker(voltage, current){
+  //let iShortCircute = data['ShortCircute'];
+  // let voltage = data['voltage'];
+  // let current = data['current'];
+
+//constant values
+  let iShortCircute = 0.63;
+  // let voltage = 18;
+  // let current = 0.4;
+
+  if (current == currentStandard){
+    current = iShortCircute * 0.9;
+  } else{
+      current = current * 0.9;
+  }
+    voltage = (voltage - voltStandard) + 0.0014;
+
+    if (current < currentStandard)
+      healthy = false;
+    else{
+      healthy = true;
+      // resultsContainer.innerHTML = "there's no error";
+    }
+
+
+    if (!healthy)
+      if (voltage != voltStandard)
+        console.log("ERROR");
+        // resultsContainer.innerHTML = "thers's an error in branch"+id;
+        //return 'error in '+id;
+
+   // fetch('https://hooks.zapier.com/hooks/catch/3509879/ln5xqz/', {
+   //    method: 'POST',
+   //    body: JSON.stringify({i: 18, v: 0.0004})
+   //  });
+
+}
+
+
+// setInterval( randomValue(), 2000 );
+
+
+</script>
+<script>
+
+$.ajax({
+  dataType: "json",
+  url: "",
+  data: String,
+  success: true
+});
+
+
+$.getJSON( "testJSON.json", function( data ) {
+
+ let i =0;
+  setInterval( function(){
+
+    randomValue(18, gaugeChart2, "voltage");
+    console.log("2");
+    randomValue(17.1, gaugeChart3, "KW");
+    console.log("3");
+
+    if(i >= data.length){
+      // console.log(data.length);
+    }else{
+      console.log(data[i]);
+      checker(data[i].i,data[i].v);
+      randomValue(data[i].v, gaugeChart, "voltage");
+      i++;
+    }
+
+  }, 500 );
+});
+
+
+// set random value
+function randomValue(value, Chart, unit) {
+  // var value = Math.round( Math.random() * 200 );
+  if ( Chart ) {
+    if ( Chart.arrows ) {
+      if ( Chart.arrows[ 0 ] ) {
+        if ( Chart.arrows[ 0 ].setValue ) {
+          Chart.arrows[ 0 ].setValue( value );
+          Chart.axes[ 0 ].setBottomText( value + " " + unit);
+        }
+      }
+    }
+  }
+}
+</script>
+</html>
