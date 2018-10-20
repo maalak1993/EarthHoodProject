@@ -205,11 +205,11 @@ $.ajax({
   success: true
 });
 
-
+let standard=18;
 $.getJSON( "testJSON.json", function( data ) {
 
  let i =0;
-  let standard=18;
+  
   setInterval( function(){
 
     randomValue(standard, gaugeChart2, "voltage");
